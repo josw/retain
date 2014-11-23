@@ -9,7 +9,11 @@ hhh
 
 <form action="#" th:action="@{/}" th:object="${company}" method="post">
 회사명 : <input type="text" th:field="*{companyName}" />
+
+<button type="submit" name="save">등록</button>    
 </form>
+
+
 
 </body>
 </html>
