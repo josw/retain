@@ -5,10 +5,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-hhh
+
+<select>
+	<option th:each="dt : ${data}" th:text="${dt.name}" th:value="${dt.symbol}">name</option>
+</select>
 
 <form action="#" th:action="@{/}" th:object="${company}" method="post">
-회사명 : <input type="text" th:field="*{companyName}" />
+회사명 : <input type="text" th:field="*{name}" />
 
 <button type="submit" name="save">등록</button>    
 </form>
