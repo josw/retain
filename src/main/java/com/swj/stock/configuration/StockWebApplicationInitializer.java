@@ -7,7 +7,7 @@ public class StockWebApplicationInitializer extends AbstractAnnotationConfigDisp
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class[]{StockServiceConfig.class};
+		return new Class[]{StockServiceConfig.class, SecurityConfig.class};
 	}
 
 	@Override
