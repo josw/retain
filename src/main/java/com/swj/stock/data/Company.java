@@ -1,12 +1,19 @@
 package com.swj.stock.data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import lombok.Data;
 
 @Data
+@Entity
+@Table(catalog="stock", schema="", name="company")
 public class Company {
 	
-	Integer	id;
-	String companyName;
+	@Id
+	String symbol;
+	String name;
 	
 
 }

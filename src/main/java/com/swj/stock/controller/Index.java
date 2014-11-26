@@ -1,7 +1,10 @@
 package com.swj.stock.controller;
 
+import java.util.List;
+
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -9,16 +12,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.swj.stock.data.Company;
+import com.swj.stock.data.CompanyRepository;
 
 @Controller
 @Slf4j
 public class Index {
+	
+	@Autowired
+	private CompanyRepository repository;
 
 	@RequestMapping({"/", ""})
 	public ModelAndView index(final Company company) {
 		
-		log.info("idx 1");
-		return new ModelAndView("index");
+		List<Company> aaa = repository.findAll();
+		
+		ModelAndView mnv = new ModelAndView("index");
+		mnv.addObject("data", aaa);
+		
+		log.info("idx 1 {}", aaa);
+		return mnv;
 	}
 
 	@RequestMapping(value="/", params={"save"})
