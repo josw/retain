@@ -6,7 +6,7 @@ eclipse {
 	wtp {
 		facet {
 		  facet name: 'jst.web', version: '3.1'
-		  facet name: 'jst.java', version: '1.8'
+		  facet name: 'jst.java', version: '1.7'
 		  facet name: 'wst.jsdt.web', version: '1.0'
 		}
 	}
@@ -40,6 +40,8 @@ dependencies {
 	compile 'com.google.guava:guava:18.0'
 	compile 'org.hibernate:hibernate-entitymanager:4.3.7.Final'
 	compile 'ch.qos.logback:logback-classic:1.1.2'
+	compile 'org.codehaus.groovy:groovy-all:2.3.8'
+	
 	runtime 'mysql:mysql-connector-java:5.1.34'
 	runtime 'org.apache.tomcat:tomcat-catalina:8.0.15'
 }
