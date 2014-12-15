@@ -39,7 +39,7 @@ public class StockWebMvcConfig extends DelegatingWebMvcConfiguration{
 	
 	@Override
 	protected void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/");
 		super.addResourceHandlers(registry);
 	}
 

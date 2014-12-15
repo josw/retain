@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ko">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <title>Bootstrap 101 Template</title>
 
     <!-- Bootstrap -->
-    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
 
 
 
@@ -19,22 +19,23 @@
     <![endif]-->
   </head>
   <body>
-    <h1>Hello, world!</h1>
-    
+    <h1></h1>
+    <form action="#" th:action="@{/}" th:object="${company}" method="post">
     <select>
 	<option th:each="dt : ${data}" th:text="${dt.name}" th:value="${dt.symbol}">name</option>
 	</select>
+	<button type="submit" name="update_data">UPDATE</button>
     
-    <form action="#" th:action="@{/}" th:object="${company}" method="post">
-회사명 : <input type="text" th:field="*{name}" />
+    
+- 회사명 : <input type="text" th:field="*{name}" />
 
 <button type="submit" name="save">등록</button>    
 </form>
     
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="/jquery/jquery.min.js"></script>
+    <script src="/resources/jquery/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
   </body>
 </html>

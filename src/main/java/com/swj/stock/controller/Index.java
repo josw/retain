@@ -29,14 +29,22 @@ public class Index {
 		ModelAndView mnv = new ModelAndView("index");
 		mnv.addObject("data", aaa);
 		
-		log.info("idx 1 {}", aaa);
+		log.info("idx 11 {}", aaa);
 		return mnv;
 	}
 
 	@RequestMapping(value="/", params={"save"})
 	public ModelAndView index(final Company company,  final BindingResult bindingResult, final ModelMap model) {
 		
-		log.info("idx 2 {} {}", bindingResult, model);
+		log.info("idx 22 {} {}", bindingResult, model);
+		
+		return new ModelAndView("index");
+	}
+
+	@RequestMapping(value="/", params={"update_data"})
+	public ModelAndView index(final Company company, String symbol) {
+		
+		log.info("idx 22x {} {}", symbol);
 		
 		return new ModelAndView("index");
 	}
