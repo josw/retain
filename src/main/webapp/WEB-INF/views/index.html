@@ -8,7 +8,26 @@
 
     <!-- Bootstrap -->
     <link href="/resources/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/resources/jquery-ui/themes/smoothness/jquery-ui.min.css" rel="stylesheet"/>
 
+
+  <style>
+  .custom-combobox {
+    position: relative;
+    display: inline-block;
+  }
+  .custom-combobox-toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-left: -1px;
+    padding: 0;
+  }
+  .custom-combobox-input {
+    margin: 0;
+    padding: 5px 10px;
+  }
+  </style>
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -21,21 +40,57 @@
   <body>
     <h1></h1>
     <form action="#" th:action="@{/}" th:object="${company}" method="post">
-    <select>
-	<option th:each="dt : ${data}" th:text="${dt.name}" th:value="${dt.symbol}">name</option>
+    <p>
+    <select th:id="sel">
+	<option th:each="dt : ${data}" th:text="|${dt.symbol} - ${dt.name} - ${dt.mtype}|" th:value="${dt.symbol}">name</option>
 	</select>
-	<button type="submit" name="update_data">UPDATE</button>
+	<input type="text" th:field="*{name}" th:id="comp_srch"/>
+	</p>
     
-    
-- 회사명 : <input type="text" th:field="*{name}" />
+	</form>
 
-<button type="submit" name="save">등록</button>    
-</form>
-    
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/resources/jquery/jquery.min.js"></script>
+    <script src="/resources/jquery-ui/jquery-ui.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/resources/bootstrap/js/bootstrap.min.js"></script>
+
+
+	<script>
+	/*<![CDATA[*/
+
+
+	
+		$(function() {
+			$("#comp_srch").autocomplete(
+					{
+						source : function(request, response) {
+							var sel = $('#sel');
+							var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
+							response(sel.children("option").map(
+									function() {
+										var text = $(this).text();
+										var value = $(this).val();
+										if(this.value && (!request.term || matcher.test(text)))
+											return {
+												label : text,
+												value : text,
+												sel : value
+											};
+									}))
+						},
+						select: function( event, ui ) {
+							$('#sel').val(ui.item.sel);
+						}
+					}).focus(function() {
+						$(this).val('');
+					});
+		});
+
+		/*]]>*/
+	</script>
+    
+
   </body>
 </html>

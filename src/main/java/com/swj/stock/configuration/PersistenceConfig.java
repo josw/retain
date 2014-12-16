@@ -5,16 +5,9 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 
 import org.apache.tomcat.dbcp.dbcp2.BasicDataSource;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
@@ -32,7 +25,7 @@ public class PersistenceConfig {
 	public BasicDataSource dataSource() {
 		BasicDataSource dataSource = new BasicDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://localhost:3306");
+		dataSource.setUrl("jdbc:mysql://localhost:3306/stock?UseUnicode=true&amp;characterEncoding=utf8&amp;connectionCollation=utf8_general_ci");
 		dataSource.setUsername("root");
 		// dataSource.setPassword("pass");
 
@@ -104,13 +97,17 @@ public class PersistenceConfig {
 //		return new PersistenceExceptionTranslationPostProcessor();
 //	}
 
-	Properties hibernateProperties() {
+	@SuppressWarnings("serial")
+	private Properties hibernateProperties() {
 		return new Properties() {
 			{
-				setProperty("hibernate.hbm2ddl.auto", "create-drop");
+				setProperty("hibernate.hbm2ddl.auto", "update");
 				setProperty("hibernate.dialect",
-						"org.hibernate.dialect.MySQL5Dialect");
+						"org.hibernate.dialect.MySQLDialect");
 				setProperty("hibernate.globally_quoted_identifiers", "true");
+				setProperty("hibernate.connection.CharSet", "UTF-8");
+				setProperty("hibernate.connection.characterEncoding", "UTF-8");
+				setProperty("hibernate.connection.useUnicode", "true");
 			}
 		};
 	}
