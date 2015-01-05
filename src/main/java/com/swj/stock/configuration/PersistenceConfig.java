@@ -108,6 +108,7 @@ public class PersistenceConfig {
 				setProperty("hibernate.connection.CharSet", "UTF-8");
 				setProperty("hibernate.connection.characterEncoding", "UTF-8");
 				setProperty("hibernate.connection.useUnicode", "true");
+				setProperty("hibernate.show_sql" ,"true");
 			}
 		};
 	}

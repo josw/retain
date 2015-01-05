@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.swj.stock.data.ChartRepository;
 import com.swj.stock.data.Company;
 import com.swj.stock.data.CompanyRepository;
 
@@ -20,6 +22,9 @@ public class Index {
 	
 	@Autowired
 	private CompanyRepository repository;
+	
+	@Autowired
+	private ChartRepository chartRepository;
 
 	@RequestMapping({"/", ""})
 	public ModelAndView index(final Company company) {
@@ -49,6 +54,16 @@ public class Index {
 		return new ModelAndView("index");
 	}
 
+	@RequestMapping(value="/dig")
+	@ResponseBody
+	public String dig(String code) {
+		
+		
+		log.info(">>>>>{}",chartRepository.findLatest(code));
+		
+		return "ook" + code;
+		
+	}
 	
 	
 }

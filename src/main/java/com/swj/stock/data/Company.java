@@ -1,5 +1,7 @@
 package com.swj.stock.data;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -28,6 +30,12 @@ public class Company {
 	@Column(length=10)
 	@Enumerated(EnumType.STRING)
 	MTYPE mtype;
+	
+	@Column
+	Date updDt;
+	
+	@Column(length=10)
+	String status;
 	
 
 }

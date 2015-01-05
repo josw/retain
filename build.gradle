@@ -15,6 +15,9 @@ eclipse {
     }
 }
 
+ext {
+    generatedSourcesDir = file("${buildDir}/generated-sources")
+}
 
 
 repositories {
@@ -22,6 +25,20 @@ repositories {
 	mavenCentral()
 }
 
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/main/java"
+            srcDir generatedSourcesDir
+        }
+    }
+}
+
+configurations {
+    querydslapt
+    all*.exclude group: "commons-logging", module: "commons-logging"
+}
 
 dependencies {
 	providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
@@ -41,19 +58,41 @@ dependencies {
 	compile 'org.hibernate:hibernate-entitymanager:4.3.7.Final'
 	compile 'ch.qos.logback:logback-classic:1.1.2'
 	compile 'org.codehaus.groovy:groovy-all:2.3.8'
+	compile 'com.mysema.querydsl:querydsl-jpa:3.6.0'
 	
 	runtime 'mysql:mysql-connector-java:5.1.34'
 	runtime 'org.apache.tomcat:tomcat-catalina:8.0.15'
+	
+	querydslapt 'com.mysema.querydsl:querydsl-apt:3.6.0'
+	
 }
 
-configurations {
-    all*.exclude group: "commons-logging", module: "commons-logging"
-}
+
+
+
 
 
 project.group = 'com.swj.stock'
 project.version = '0.0.1-SNAPSHOT'
 
+task generateQueryDSL(type: JavaCompile, group: 'build', description: 'Generates the QueryDSL query types') {
+    source = sourceSets.main.java
+    classpath = configurations.compile + configurations.querydslapt
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor", "com.mysema.query.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = generatedSourcesDir
+}
+
+compileJava {
+    doFirst {
+        generatedSourcesDir.mkdirs();
+    }
+    options.compilerArgs += ['-s', generatedSourcesDir]
+ 
+    dependsOn generateQueryDSL
+}
 
 task wrapper(type:Wrapper) {
 	gradleVersion = '2.2'
