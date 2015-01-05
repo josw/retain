@@ -1,4 +1,8 @@
-/rebel.xml
+rebel.xml
 bin/
-.setttings/
+.classpath
+.settings
 .project
+.gradle
+build/
+gradle/
